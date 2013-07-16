@@ -10,7 +10,6 @@
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
-#include <conio.h>
 
 FILE *adc;
 FILE *gpio;
