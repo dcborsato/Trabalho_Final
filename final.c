@@ -97,8 +97,11 @@ int disparo(int a){
 		b = 0;	
 	}
 	
+	while (1){	
 	cruzamento_zero = leitura_adc();
 	printf("Leitura ADC: %d\n",cruzamento_zero);
+	}
+/*
 //	cruzamento_zero = 300;
 
 	for(j=0; j<12000; j++){
@@ -110,6 +113,7 @@ int disparo(int a){
 		}
 	}
 }
+*/
 
 /*!
  \brief Essa função realiza a gravação de um arquivo html.
@@ -173,7 +177,7 @@ int main (int argc, char **argv)
 		pot = 0;
 		printf("Entrou aqui");
 		carrega_html(pot,status);
-		espera(5000);
+		espera(2000);
 		status = "LIGADA";
 		pot = 25;
 		carrega_html(pot,status);
