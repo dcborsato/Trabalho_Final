@@ -11,8 +11,6 @@
 #include <time.h>
 #include <unistd.h>
 #include <conio.h>
-#include <dos.h>
-#include <windows.h>
 
 FILE *adc;
 FILE *gpio;
@@ -43,7 +41,7 @@ void inicializa(){
 void espera(int a){
 	int i;
 	for (i=0; i<a; i++){
-		Sleep(0);
+		sleep(0);
 	}
 }
 
@@ -55,8 +53,8 @@ void espera(int a){
 void saida_lampada(char *a){
 
 	gpio=fopen("/sys/class/gpio/gpio193/value","w");
-    fputs (a,gpio);
-    fclose (gpio);
+	fputs (a,gpio);
+	fclose (gpio);
 }
 
 /*!
@@ -67,7 +65,7 @@ void saida_lampada(char *a){
 int leitura_adc(){
 
 	int cruzamento_zero;
-    char valor[20];
+	char valor[20];
 
 	adc = fopen ("/sys/devices/platform/s3c24xx-adc/s3c-hwmon/in1_input", "r");
 	fscanf (adc, "%s", valor);
@@ -82,32 +80,31 @@ int leitura_adc(){
  */
 
 int disparo(int a){
-    int cruzamento_zero, b, j;
+	int cruzamento_zero, b, j;
 
-    if(a == 25){
-        b = 10;
-    }
-    if(a == 50){
-        b = 10;
-    }
-    if(a == 75){
-        b = 10;
-    }
-    if(a == 100){
-        b = 10;
-    }
-//    cruzamento_zero = leitura_adc();
-    cruzamento_zero = 300;
+	if(a == 25){
+		b = 10;
+	}
+	if(a == 50){
+		b = 10;
+	}	
+	if(a == 75){
+		b = 10;
+	}
+	if(a == 100){
+		b = 10;	
+	}
+	//cruzamento_zero = leitura_adc();
+	cruzamento_zero = 300;
 
-
-    for(j=0; j<12000; j++){
-        if(cruzamento_zero>200){
-            espera(b);
-            saida_lampada("1");
-            espera(2);
-            saida_lampada("0");
-        }
-    }
+	for(j=0; j<12000; j++){
+		if(cruzamento_zero>200){
+			espera(b);
+			saida_lampada("1");
+			espera(2);
+			saida_lampada("0");
+		}
+	}
 }
 
 /*!
@@ -118,38 +115,38 @@ int disparo(int a){
 
 int carrega_html(int pot, char *status){
 
-    char aux[6];
+	char aux[6];
 
-html= fopen("C:\\index.html","w");
-fputs("<html><head><title>Sistemas Embarcados</title><META HTTP-EQUIV='REFRESH' CONTENT='1'></head><body>\n",html);
-fputs("<table width=\"1020\" border=\"0\">\n",html);
-fputs("  <tr>\n",html);
-fputs("    <th width=\"788\" bgcolor=\"#FFFFFF\" scope=\"col\"><p align=\"center\"><u><strong>SISTEMAS EMBARCADOS</strong></u></p>\n",html);
-fputs("      <p align=\"center\"><strong>PROFESSOR RICARDO BALBINOT</strong></p>\n",html);
-fputs("      <p align=\"center\"><strong>TRABALHO FINAL</strong></p>\n",html);
-fputs("      <p align=\"center\"><strong>COMPONENTES: ALEX DE SOUZA E DIEGO CONCI BORSATO</strong></p>    </th>\n",html);
-fputs("  </tr>\n",html);
-fputs("</table>\n",html);
-fputs("<table width=\"1020\" height=\"483\" border=\"0\">\n",html);
-fputs("  <tr>\n",html);
-fputs("    <th width=\"1020\" height=\"477\" scope=\"col\"><table width=\"1020\" height=\"473\" border=\"0\">\n",html);
-fputs("      <tr>\n",html);
-fputs("        <th height=\"359\" align=\"center\" valign=\"middle\" scope=\"col\"><p>A LAMPADA ESTA \n",html);
-fputs(status, html);
-fputs("          </p>\n",html);
-fputs("          <p>Intensidade Luminosa:</p>\n",html);
-fputs("          <p>",html);
-sprintf (aux, "%d", pot);
-fputs(aux, html);
-fputs("%  DE  100% DE POTENCIA</p>\n",html);
-fputs("          <p>&nbsp;</p></th>\n",html);
-fputs("        </tr>\n",html);
-fputs("    </table></th>\n",html);
-fputs("  </tr>\n",html);
-fputs("</table>\n",html);
-fputs("</body>\n",html);
-fputs("</html>\n",html);
-fclose(html);
+	html= fopen("C:\\index.html","w");
+	fputs("<html><head><title>Sistemas Embarcados</title><META HTTP-EQUIV='REFRESH' CONTENT='1'></head><body>\n",html);
+	fputs("<table width=\"1020\" border=\"0\">\n",html);
+	fputs("  <tr>\n",html);
+	fputs("    <th width=\"788\" bgcolor=\"#FFFFFF\" scope=\"col\"><p align=\"center\"><u><strong>SISTEMAS EMBARCADOS</strong></u></p>\n",html);
+	fputs("      <p align=\"center\"><strong>PROFESSOR RICARDO BALBINOT</strong></p>\n",html);
+	fputs("      <p align=\"center\"><strong>TRABALHO FINAL</strong></p>\n",html);
+	fputs("      <p align=\"center\"><strong>COMPONENTES: ALEX DE SOUZA E DIEGO CONCI BORSATO</strong></p>    </th>\n",html);
+	fputs("  </tr>\n",html);
+	fputs("</table>\n",html);
+	fputs("<table width=\"1020\" height=\"483\" border=\"0\">\n",html);
+	fputs("  <tr>\n",html);
+	fputs("    <th width=\"1020\" height=\"477\" scope=\"col\"><table width=\"1020\" height=\"473\" border=\"0\">\n",html);
+	fputs("      <tr>\n",html);
+	fputs("        <th height=\"359\" align=\"center\" valign=\"middle\" scope=\"col\"><p>A LAMPADA ESTA \n",html);
+	fputs(status, html);
+	fputs("          </p>\n",html);
+	fputs("          <p>Intensidade Luminosa:</p>\n",html);
+	fputs("          <p>",html);
+	sprintf (aux, "%d", pot);
+	fputs(aux, html);
+	fputs("%  DE  100% DE POTENCIA</p>\n",html);
+	fputs("          <p>&nbsp;</p></th>\n",html);
+	fputs("        </tr>\n",html);
+	fputs("    </table></th>\n",html);
+	fputs("  </tr>\n",html);
+	fputs("</table>\n",html);
+	fputs("</body>\n",html);
+	fputs("</html>\n",html);
+	fclose(html);
 }
 
 /*!
@@ -161,31 +158,31 @@ fclose(html);
 
 int main (int argc, char **argv)
 {
-    int pot=0;
-    char *status = "DESLIGADA";
+	int pot=0;
+	char *status = "DESLIGADA";
 
-    inicializa();
+	inicializa();
 
 	while (1){
-        saida_lampada("0");
-        status = "DESLIGADA";
-        pot = 0;
-        printf("Entrou aqui");
-        carrega_html(pot,status);
-        espera(10000000);
-        status = "LIGADA";
-        pot = 25;
-        carrega_html(pot,status);
-        disparo(25);
-        pot = 50;
-        carrega_html(pot,status);
-        disparo(50);
-        pot = 75;
-        carrega_html(pot,status);
-        disparo(75);
-        pot = 100;
-        carrega_html(pot,status);
-        disparo(100);
+		saida_lampada("0");
+		status = "DESLIGADA";
+		pot = 0;
+		printf("Entrou aqui");
+		carrega_html(pot,status);
+		espera(10000000);
+		status = "LIGADA";
+		pot = 25;
+		carrega_html(pot,status);
+		disparo(25);
+		pot = 50;
+		carrega_html(pot,status);
+		disparo(50);
+		pot = 75;
+		carrega_html(pot,status);
+		disparo(75);
+		pot = 100;
+		carrega_html(pot,status);
+		disparo(100);
 	}
 	return 1;
 }
