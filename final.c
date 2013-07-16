@@ -96,8 +96,10 @@ int disparo(int a){
 	if(a == 100){
 		b = 0;	
 	}
-	//cruzamento_zero = leitura_adc();
-	cruzamento_zero = 300;
+	
+	cruzamento_zero = leitura_adc();
+	printf("Leitura ADC: %d\n",cruzamento_zero);
+//	cruzamento_zero = 300;
 
 	for(j=0; j<12000; j++){
 		if(cruzamento_zero>200){
