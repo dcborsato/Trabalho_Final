@@ -81,8 +81,7 @@ int leitura_adc(){
 int disparo(int a){
 	int cruzamento_zero, b, j, temp;
 
-
-	temp = (1/120)*1000;
+	temp = (1/120)*1000000;
 
 	if(a == 25){
 		b = (temp*1)/4;
@@ -97,10 +96,11 @@ int disparo(int a){
 		b = 0;	
 	}
 
+	printf(" O valor de a e %d  e o de b e %d", a, b);
+
 	for(j=0; j<12000; j++){	
-	cruzamento_zero = leitura_adc();
-//	cruzamento_zero = 300;
-		if(cruzamento_zero>2000){
+		cruzamento_zero = leitura_adc();
+		if(cruzamento_zero>2700){
 			espera(b);
 			saida_lampada("1");
 			espera(0);
@@ -171,7 +171,7 @@ int main (int argc, char **argv)
 		pot = 0;
 		printf("Entrou aqui");
 		carrega_html(pot,status);
-		espera(2000);
+		espera(2000000);
 		status = "LIGADA";
 		pot = 25;
 		carrega_html(pot,status);
