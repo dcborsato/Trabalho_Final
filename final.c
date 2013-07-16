@@ -116,7 +116,7 @@ int carrega_html(int pot, char *status){
 
 	char aux[6];
 
-	html= fopen("C:\\index.html","w");
+	html= fopen("/var/www/index.html","w");
 	fputs("<html><head><title>Sistemas Embarcados</title><META HTTP-EQUIV='REFRESH' CONTENT='1'></head><body>\n",html);
 	fputs("<table width=\"1020\" border=\"0\">\n",html);
 	fputs("  <tr>\n",html);
