@@ -40,7 +40,7 @@ void inicializa(){
 void espera(int a){
 	int i;
 	for (i=0; i<a; i++){
-		sleep(0);
+		usleep(0);
 	}
 }
 
@@ -79,19 +79,22 @@ int leitura_adc(){
  */
 
 int disparo(int a){
-	int cruzamento_zero, b, j;
+	int cruzamento_zero, b, j, temp;
+
+
+	temp = (1/120)*1000;
 
 	if(a == 25){
-		b = 10;
+		b = (temp*1)/4;
 	}
 	if(a == 50){
-		b = 10;
+		b = temp/2;
 	}	
 	if(a == 75){
-		b = 10;
+		b = (temp*3)/4;
 	}
 	if(a == 100){
-		b = 10;	
+		b = 0;	
 	}
 	//cruzamento_zero = leitura_adc();
 	cruzamento_zero = 300;
@@ -100,7 +103,7 @@ int disparo(int a){
 		if(cruzamento_zero>200){
 			espera(b);
 			saida_lampada("1");
-			espera(2);
+			espera(0);
 			saida_lampada("0");
 		}
 	}
@@ -168,7 +171,7 @@ int main (int argc, char **argv)
 		pot = 0;
 		printf("Entrou aqui");
 		carrega_html(pot,status);
-		espera(10000000);
+		espera(5000);
 		status = "LIGADA";
 		pot = 25;
 		carrega_html(pot,status);
