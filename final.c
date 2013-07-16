@@ -97,15 +97,11 @@ int disparo(int a){
 		b = 0;	
 	}
 	
-	while (1){	
 	cruzamento_zero = leitura_adc();
-	printf("Leitura ADC: %d\n",cruzamento_zero);
-	}
-/*
 //	cruzamento_zero = 300;
 
 	for(j=0; j<12000; j++){
-		if(cruzamento_zero>200){
+		if(cruzamento_zero>2700){
 			espera(b);
 			saida_lampada("1");
 			espera(0);
@@ -113,7 +109,6 @@ int disparo(int a){
 		}
 	}
 }
-*/
 
 /*!
  \brief Essa função realiza a gravação de um arquivo html.
