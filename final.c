@@ -96,12 +96,11 @@ int disparo(int a){
 	if(a == 100){
 		b = 0;	
 	}
-	
+
+	for(j=0; j<12000; j++){	
 	cruzamento_zero = leitura_adc();
 //	cruzamento_zero = 300;
-
-	for(j=0; j<12000; j++){
-		if(cruzamento_zero>2700){
+		if(cruzamento_zero>2000){
 			espera(b);
 			saida_lampada("1");
 			espera(0);
