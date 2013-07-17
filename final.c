@@ -28,7 +28,7 @@ void inicializa(){
 
         //seta a direção como saída
         gpio=fopen("/sys/class/gpio/gpio193/direction","w");
-        fputs ("out",gpio);
+        fputs ("high",gpio);
         fclose (gpio);
 }
 
@@ -39,8 +39,15 @@ void inicializa(){
 
 void espera(int a){
 	int i;
+	for (i=0; i<(a); i++){
+		usleep(1);
+	}
+}
+
+void espera_seg(int a){
+	int i;
 	for (i=0; i<a; i++){
-		usleep(0);
+		sleep(1);
 	}
 }
 
@@ -51,7 +58,7 @@ void espera(int a){
 
 void saida_lampada(char *a){
 
-	gpio=fopen("/sys/class/gpio/gpio193/value","w");
+	gpio=fopen("/sys/class/gpio/gpio193/value","rb+");
 	fputs (a,gpio);
 	fclose (gpio);
 }
@@ -79,31 +86,48 @@ int leitura_adc(){
  */
 
 int disparo(int a){
-	int cruzamento_zero, b, j, temp;
 
-	temp = (1/120)*1000000;
+	int cruzamento_zero, b, j;
+//	long int temp;
+
+//	temp = ((1/120)*1000000);
+//	printf("Entrei aqui %f\n", temp);
+
 
 	if(a == 25){
-		b = (temp*1)/4;
+//		b = (temp*1)/4;
+		b = 6;//6250
+		printf("Entrei no 25\n");
 	}
 	if(a == 50){
-		b = temp/2;
+//		b = temp/2;
+		b = 4;//4166
+		printf("Entrei no 50\n");
+
 	}	
 	if(a == 75){
-		b = (temp*3)/4;
+//		b = (temp*3)/4;
+		b = 2;//2084
+		printf("Entrei no 75\n");
+
 	}
 	if(a == 100){
-		b = 0;	
+//		b = 0;	
+		b = 1;
+		printf("Entrei no 100\n");
 	}
 
 	printf(" O valor de a e %d  e o de b e %d", a, b);
 
-	for(j=0; j<12000; j++){	
+	for(j=0; j<1200; j++){	
 		cruzamento_zero = leitura_adc();
+//		printf("ADC %d\n", cruzamento_zero);
 		if(cruzamento_zero>2700){
+			printf("Depois %d entrei aqui %d\n",a, b);			
 			espera(b);
 			saida_lampada("1");
 			espera(0);
+			printf("Desceu\n");
 			saida_lampada("0");
 		}
 	}
@@ -166,12 +190,13 @@ int main (int argc, char **argv)
 	inicializa();
 
 	while (1){
+
 		saida_lampada("0");
 		status = "DESLIGADA";
 		pot = 0;
 		printf("Entrou aqui");
 		carrega_html(pot,status);
-		espera(2000000);
+		espera_seg(2);
 		status = "LIGADA";
 		pot = 25;
 		carrega_html(pot,status);
@@ -185,6 +210,7 @@ int main (int argc, char **argv)
 		pot = 100;
 		carrega_html(pot,status);
 		disparo(100);
+		
 	}
 	return 1;
 }
