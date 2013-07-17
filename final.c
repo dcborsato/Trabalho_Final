@@ -85,43 +85,22 @@ int leitura_adc(){
  \param int a, varia o momento do disparo de saida com relação a potêencia desejada.
  */
 
-int disparo(int a){
+int disparo(int b){
 
-	int cruzamento_zero, b, j;
+	int cruzamento_zero, j;
 
-	if(a == 25){
-//		b = (temp*1)/4;
-		b = 6;//6250
-		printf("Entrei no 25\n");
-	}
-	if(a == 50){
-//		b = temp/2;
-		b = 4;//4166
-		printf("Entrei no 50\n");
 
-	}	
-	if(a == 75){
-//		b = (temp*3)/4;
-		b = 2;//2084
-		printf("Entrei no 75\n");
-
-	}
-	if(a == 100){
-//		b = 0;	
-		b = 1;
-		printf("Entrei no 100\n");
-	}
-
-	printf(" O valor de a e %d  e o de b e %d", a, b);
-
-	for(j=0; j<1000; j++){	
+	for(j=0; j<10; j++){	
 		cruzamento_zero = leitura_adc();
 //		printf("ADC %d\n", cruzamento_zero);
-		if(cruzamento_zero>2700){			
+		if(cruzamento_zero>2600 && (b != 0)){			
 			espera(b);
 			saida_lampada("1");
 			espera(1);
 			saida_lampada("0");
+		}
+		else{
+			saida_lampada("1");
 		}
 	}
 }
@@ -184,7 +163,7 @@ int main (int argc, char **argv)
 
 	while (1){
 
-		saida_lampada("0");
+		saida_lampada("0"); //lampada desligada
 		status = "DESLIGADA";
 		pot = 0;
 		printf("Entrou aqui");
@@ -193,16 +172,16 @@ int main (int argc, char **argv)
 		status = "LIGADA";
 		pot = 25;
 		carrega_html(pot,status);
-		disparo(25);
+		disparo(6); //25% de potencia
 		pot = 50;
 		carrega_html(pot,status);
-		disparo(50);
+		disparo(4); //50% de potencia
 		pot = 75;
 		carrega_html(pot,status);
-		disparo(75);
+		disparo(2); //75% de potencia
 		pot = 100;
 		carrega_html(pot,status);
-		disparo(100);
+		disparo(0); //100% de potencia
 		
 /*		espera(20);
 		saida_lampada("1");
