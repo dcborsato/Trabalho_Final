@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
+#include <sys/time.h>
 #include <unistd.h>
 
 FILE *adc;
@@ -39,8 +39,8 @@ void inicializa(){
 
 void espera(int a){
 	int i;
-	for (i=0; i<(a); i++){
-		usleep(1);
+	for (i=0; i<(20*a); i++){
+		nanosleep(1);
 	}
 }
 
@@ -88,11 +88,6 @@ int leitura_adc(){
 int disparo(int a){
 
 	int cruzamento_zero, b, j;
-//	long int temp;
-
-//	temp = ((1/120)*1000000);
-//	printf("Entrei aqui %f\n", temp);
-
 
 	if(a == 25){
 //		b = (temp*1)/4;
@@ -119,15 +114,13 @@ int disparo(int a){
 
 	printf(" O valor de a e %d  e o de b e %d", a, b);
 
-	for(j=0; j<1200; j++){	
+	for(j=0; j<1000; j++){	
 		cruzamento_zero = leitura_adc();
 //		printf("ADC %d\n", cruzamento_zero);
-		if(cruzamento_zero>2700){
-			printf("Depois %d entrei aqui %d\n",a, b);			
+		if(cruzamento_zero>2700){			
 			espera(b);
 			saida_lampada("1");
-			espera(0);
-			printf("Desceu\n");
+			espera(1);
 			saida_lampada("0");
 		}
 	}
@@ -211,6 +204,13 @@ int main (int argc, char **argv)
 		carrega_html(pot,status);
 		disparo(100);
 		
+/*		espera(20);
+		saida_lampada("1");
+		espera(20);
+		saida_lampada("0");
+
+*/
+
 	}
 	return 1;
 }
