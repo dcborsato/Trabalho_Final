@@ -94,13 +94,15 @@ int disparo(int b){
 		cruzamento_zero = leitura_adc();
 //		printf("ADC %d\n", cruzamento_zero);
 		if(cruzamento_zero>2600 && (b != 0)){			
-			espera(b);
-			saida_lampada("1");
-			espera(1);
-			saida_lampada("0");
-		}
-		else(b == 0){
-			saida_lampada("1");
+			if (b==0){
+				saida_lampada("1");
+			}
+			if(b!=0){			
+				espera(b);
+				saida_lampada("1");
+				espera(1);
+				saida_lampada("0");
+			}
 		}
 	}
 }
