@@ -33,7 +33,7 @@ void inicializa(){
 }
 
 /*!
- \brief Essa função é para incrementar um timer.
+ \brief Essa função é para incrementar um timer em nanosegundos.
  \param int a, define quantas vezes deve ser aguardado o timer.
  */
 
@@ -43,6 +43,11 @@ void espera(int a){
 		nanosleep(1);
 	}
 }
+
+/*
+ \brief Essa função é para incrementar um timer em segundos.
+ \param int a, define quantas vezes deve ser aguardado o timer.
+ */
 
 void espera_seg(int a){
 	int i;
