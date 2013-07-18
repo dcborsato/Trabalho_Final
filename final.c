@@ -39,7 +39,7 @@ void inicializa(){
 
 void espera(int a){
 	int i;
-	for (i=0; i<(20*a); i++){
+	for (i=0; i<a; i++){
 		nanosleep(1);
 	}
 }
@@ -90,10 +90,10 @@ int disparo(int b){
 	int cruzamento_zero, j;
 
 
-	for(j=0; j<100; j++){	
+	for(j=0; j<10000; j++){	
 		cruzamento_zero = leitura_adc();
 //		printf("ADC %d\n", cruzamento_zero);
-		if(cruzamento_zero>2600 && (b != 0)){			
+		if(cruzamento_zero>50){			
 			if (b==0){
 				saida_lampada("1");
 			}
@@ -174,7 +174,7 @@ int main (int argc, char **argv)
 		status = "LIGADA";
 		pot = 75;
 		carrega_html(pot,status);
-		disparo(2); //75% de potencia
+		disparo(200); //75% de potencia
 		pot = 100;
 		carrega_html(pot,status);
 		disparo(0); //100% de potencia
