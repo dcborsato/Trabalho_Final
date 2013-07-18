@@ -90,7 +90,7 @@ int disparo(int b){
 	int cruzamento_zero, j;
 
 
-	for(j=0; j<10; j++){	
+	for(j=0; j<100; j++){	
 		cruzamento_zero = leitura_adc();
 //		printf("ADC %d\n", cruzamento_zero);
 		if(cruzamento_zero>2600 && (b != 0)){			
@@ -99,7 +99,7 @@ int disparo(int b){
 			espera(1);
 			saida_lampada("0");
 		}
-		else{
+		else(b == 0){
 			saida_lampada("1");
 		}
 	}
@@ -167,28 +167,15 @@ int main (int argc, char **argv)
 		status = "DESLIGADA";
 		pot = 0;
 		printf("Entrou aqui");
-		carrega_html(pot,status);
+		carrega_html(pot,status); 
 		espera_seg(2);
 		status = "LIGADA";
-		pot = 25;
-		carrega_html(pot,status);
-		disparo(6); //25% de potencia
-		pot = 50;
-		carrega_html(pot,status);
-		disparo(4); //50% de potencia
 		pot = 75;
 		carrega_html(pot,status);
 		disparo(2); //75% de potencia
 		pot = 100;
 		carrega_html(pot,status);
 		disparo(0); //100% de potencia
-		
-/*		espera(20);
-		saida_lampada("1");
-		espera(20);
-		saida_lampada("0");
-
-*/
 
 	}
 	return 1;
